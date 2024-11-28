@@ -6,10 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ArticleListView: View {
+    @Query private var articles: [Article]
+    @State private var navigationPath: [Article] = []
     var body: some View {
-        Text("Article List View")
+        NavigationStack(path: $navigationPath) {
+            List {
+                ForEach(articles) { article in
+                   
+                    
+                        ArticleCardView(article: article)
+                    
+                }
+            }
+        }
     }
 }
 
