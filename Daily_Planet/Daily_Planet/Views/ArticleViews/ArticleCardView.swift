@@ -10,34 +10,32 @@ import SwiftUI
 struct ArticleCardView: View {
      var article: Article
     var body: some View {
-        VStack {
-            GroupBox {
-                VStack {
-                    AsyncImage(url: URL(string: article.urlToImage)) {
-                        Image in Image.image?.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 300, height: 200)
-                    }
-                    HStack {
-                        NavigationLink {
-                            ArticleDetailScreenView(article: article)
-                        } label: {
-                            Text("Learn more")
-                                .foregroundStyle(.myPrimary)
-                                .font(.system(size: 18, weight: .medium))
-                                .frame(width: 300, height: 50)
-                                .background(Color.gray)
-                                .cornerRadius(10)
-                        }
-                    }
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white)
+                .shadow(radius: 10)
+            VStack(alignment: .center,spacing: 10) {
+                Text(article.author)
+                Text(article.title)
+                    .font(.system(size: 20, weight: .semibold))
+                
+                AsyncImage(url: URL(string: article.urlToImage)) { image in
+                    image.image?.resizable()
+                        .scaledToFit()
+                        .cornerRadius(10)
+                        .accessibilityLabel(article.author)
                 }
-            } label: {
-                Label(article.title, systemImage: "arrow.2.circlepath.circle")
+                   
+                
             }
+            .padding(10)
         }
+        .frame( height: 450)
     }
 }
 
 #Preview {
     ArticleCardView(article: MockData.sampleArticle)
 }
+
+

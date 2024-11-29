@@ -10,5 +10,7 @@ import SwiftUI
 
 
 struct ColorTheme {
-    static var primary: Color = Color("myPrimary")
+    static let primary: Color = Color("myPrimary")
+    static let secondary: Color = Color("mySecondary")
+    static let tertiary: Color = Color("myTertiary")
 }

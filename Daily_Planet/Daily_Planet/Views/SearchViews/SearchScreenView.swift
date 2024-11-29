@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct SearchScreenView: View {
+    @State var searchText: String = ""
     var body: some View {
-        Text("Search Screen View")
+        ZStack {
+            Color(ColorTheme.primary)
+                .ignoresSafeArea()
+            
+            VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        
+                    TextField("Search for articles", text: $searchText)
+                        .padding(10)
+                        .background(Color(ColorTheme.tertiary))
+                        .foregroundColor(ColorTheme.secondary)
+                        .font(.headline)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 10)
+                
+                Spacer()
+            }
+        }
     }
 }
 
