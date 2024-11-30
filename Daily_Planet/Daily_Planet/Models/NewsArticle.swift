@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 struct NewsResponse: Codable {
     let status: String

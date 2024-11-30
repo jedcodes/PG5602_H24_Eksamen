@@ -14,7 +14,7 @@ struct TabbarView: View {
                 .tabItem {
                     Label("My Articles", systemImage: "list.bullet")
                 }
-            SearchScreenView()
+            SearchScreenView(model: NewsArticleService())
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }

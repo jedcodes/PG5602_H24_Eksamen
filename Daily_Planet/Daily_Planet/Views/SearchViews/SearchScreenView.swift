@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchScreenView: View {
-    @State var searchText: String = ""
+    @Bindable var model: NewsArticleService
     var body: some View {
         ZStack {
             Color(ColorTheme.primary)
@@ -18,7 +18,7 @@ struct SearchScreenView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         
-                    TextField("Search for articles", text: $searchText)
+                    TextField("Search for articles", text: $model.searchTerm)
                         .padding(10)
                         .background(Color(ColorTheme.tertiary))
                         .foregroundColor(ColorTheme.secondary)
@@ -28,11 +28,31 @@ struct SearchScreenView: View {
                 .padding(.horizontal, 10)
                 
                 Spacer()
+                
+                if $model.articles.isEmpty {
+                    GlobalEmptyListView(title: "No results found", subtitle: "Try searching for a topic")
+                } else {
+                    NavigationStack {
+                        List($model.articles, id: \.source.id) { result in
+                            SearchResultView()
+                            
+                        }
+                    }
+                }
+                Spacer()
+            }
+        }
+        .task {
+            do {
+                model.articles = try await model.fetchNewArticles()
+            } catch {
+                print(error.localizedDescription)
+
             }
         }
     }
 }
 
 #Preview {
-    SearchScreenView()
+    SearchScreenView(model: NewsArticleService())
 }
